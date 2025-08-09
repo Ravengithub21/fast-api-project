@@ -1,1 +1,7 @@
-#Adding a comment line to check if the setup is working as intended.
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello" : "World"}
