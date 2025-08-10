@@ -20,7 +20,13 @@ def read_root():
 
 
 
+@app.get("/todos/{todo_id}")
+def get_item(todo_id: int):
+    for todo in all_todos:
+        if todo["todo_id"] == todo_id:
+            return todo
+
 
 @app.get("/todos")
-def get_todo():
-    return all_todos
+def return_todo():
+    return all_todos   
