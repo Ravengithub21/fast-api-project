@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
+
 
 app = FastAPI()                                             
 
@@ -29,4 +30,20 @@ def get_item(todo_id: int):
 
 @app.get("/todos")
 def return_todo():
-    return all_todos   
+    return all_todos
+
+
+
+@app.post("/todos")
+def get_todo(todo: dict):
+    new_id = len(all_todos) + 1
+
+    new_todo_list = {
+        "todo_id" : new_id,
+        "todo_name" : todo["todo_name"],
+        "todo_description" : todo["todo_description"]
+    }
+
+    all_todos.append(new_todo_list)
+    
+    return all_todos
