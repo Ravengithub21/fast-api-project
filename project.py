@@ -37,7 +37,6 @@ def return_todo():
 @app.post("/todos")
 def get_todo(todo: dict):
     new_id = len(all_todos) + 1
-
     new_todo_list = {
         "todo_id" : new_id,
         "todo_name" : todo["todo_name"],
@@ -45,5 +44,17 @@ def get_todo(todo: dict):
     }
 
     all_todos.append(new_todo_list)
-    
     return all_todos
+
+
+@app.put("/todos/{todo_id}")
+def update_todo(todo_id: int, updated_todo: dict):
+    for todo in all_todos:
+        if todo["todo_id"] == todo_id:
+            todo["todo_name"] = updated_todo["todo_name"]
+            todo["todo_description"] = updated_todo["todo_description"]
+            return todo
+    return "Error, not found"
+    
+
+
