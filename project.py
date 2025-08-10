@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 app = FastAPI()                                             
 
+print("Hello, world")
 
 all_todos = [
         {"todo_id" : 1, "todo_name" : "Sports", "todo_description" : "Go to the gym"},
