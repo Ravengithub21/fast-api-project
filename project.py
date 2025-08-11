@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, HTTPException
 
 
 app = FastAPI()                                             
@@ -26,6 +26,7 @@ def get_item(todo_id: int):
     for todo in all_todos:
         if todo["todo_id"] == todo_id:
             return todo
+    raise HTTPException(status_code=404, detail="Todo not found")
 
 
 @app.get("/todos")
@@ -54,7 +55,7 @@ def update_todo(todo_id: int, updated_todo: dict):
             todo["todo_name"] = updated_todo["todo_name"]
             todo["todo_description"] = updated_todo["todo_description"]
             return todo
-    return "Error, not found"
+    raise HTTPException(status_code=404, detail="Todo not found")
 
 @app.delete("/todos/{todo_id}")
 def delete_todo(todo_id: int):
@@ -62,7 +63,4 @@ def delete_todo(todo_id: int):
         if todo["todo_id"] == todo_id:
             deleted_todo = all_todos.pop(index)
             return deleted_todo
-        return "Error, not found"
-
-
-
+    raise HTTPException(status_code=404, detail="Todo not found")
